@@ -1,4 +1,6 @@
 
+import React, { useState } from "react";
+
 const style = { 
     border: '1px solid darkblue',
     borderRadius: "15px",
@@ -9,15 +11,31 @@ const style = {
     margin: "12px"
 }
 
+const reviewStyle = {
+    border: '1px solid darkblue', 
+    borderRadius: '7px',
+    padding: '2px', 
+    margin: '5px',
+    fontSize: '14px'
+}
+
 const handleClick = (movies) => { 
     console.log(movies.target.id);
 }
 
-const comment = (id) => { 
+const submitReview = (id) => { 
     console.log(id)
 }
 
+
+
 const MovieThumbnail = (movies) => { 
+    console.log(movies);
+    let review;
+    const [reviews, setReviews] = useState([]);
+    if (reviews) {
+
+    }
     return (
         <div>
             <div>
@@ -29,7 +47,14 @@ const MovieThumbnail = (movies) => {
                 style={style} />
             </div>
             <div> 
-                <button className='btn btn-primary' onClick={comment} id={movies.movie}>comment</button>
+                <form className="form">
+                    <div className="form-group">
+                        <textarea type="text" id="review" style={reviewStyle} placeholder="reveiw comments" />
+                    </div>
+                </form>
+                <button className='btn btn-primary' 
+                    onClick={submitReview} 
+                    id={movies.movie.title}>Review</button>
             </div>
         </div>
     );

@@ -14,12 +14,15 @@ const thumbnail = {
     boxSizing: "border-box",
     color: "white"
   }
-
+  
   const MovieContainer = () => { 
+    let movie;
     const [movies, setMovies] = useState(moviedata);
-    let movie = movies.map(function (movie, index) {
-        return <MovieThumbnail key={index} movie={movie} />;
-    });
+    if (movies) {
+        movie = movies.map(function (movie, index) {
+            return <MovieThumbnail key={index} movie={movie} />;
+        });
+    }
 
     let addMovie = () => { 
         console.log('adding movie');
