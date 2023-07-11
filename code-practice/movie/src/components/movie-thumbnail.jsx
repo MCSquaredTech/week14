@@ -1,6 +1,12 @@
 
 import React, { useState } from "react";
-
+class Reviews { 
+    constructor(movieId, review, starRating) {
+        this.movieId = movieId; 
+        this.review = review;
+        this.starRating = starRating;
+    }
+}
 const style = { 
     border: '1px solid darkblue',
     borderRadius: "15px",
@@ -23,19 +29,22 @@ const handleClick = (movies) => {
     console.log(movies.target.id);
 }
 
-const submitReview = (id) => { 
-    console.log(id)
-}
+
 
 
 
 const MovieThumbnail = (movies) => { 
-    console.log(movies);
-    let review;
-    const [reviews, setReviews] = useState([]);
-    if (reviews) {
 
+    const [reviews, setReviews] = useState([]);
+
+
+    const submitReview = (e) => { 
+        e.preventDefault(); 
+        
+        const getReview = new Reviews(movies.movie.id, reviews, 4); 
+        console.log(getReview);
     }
+
     return (
         <div>
             <div>
@@ -47,14 +56,25 @@ const MovieThumbnail = (movies) => {
                 style={style} />
             </div>
             <div> 
-                <form className="form">
+                <form method="post" onSubmit={submitReview} >
                     <div className="form-group">
-                        <textarea type="text" id="review" style={reviewStyle} placeholder="reveiw comments" />
+                        <textarea 
+                            name="review" 
+                            type="text"
+                            style={reviewStyle} 
+                            id="review" 
+                            value = {reviews}
+                            onChange={e => setReviews(e.target.value)}
+                            placeholder="reveiw comments" />
                     </div>
                 </form>
-                <button className='btn btn-primary' 
-                    onClick={submitReview} 
-                    id={movies.movie.title}>Review</button>
+                <button type="text"
+                    id={movies.movie}
+                    className='btn btn-primary'
+                    onClick={submitReview}>Review</button>
+            </div>
+            <div> 
+
             </div>
         </div>
     );
