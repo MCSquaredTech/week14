@@ -1,5 +1,8 @@
 
 import React, { useState } from "react";
+import { Rating } from "react-simple-star-rating";
+import ReviewComponent from "./review-component";
+
 class Reviews { 
     constructor(movieId, review, starRating) {
         this.movieId = movieId; 
@@ -7,6 +10,7 @@ class Reviews {
         this.starRating = starRating;
     }
 }
+
 const style = { 
     border: '1px solid darkblue',
     borderRadius: "15px",
@@ -35,15 +39,37 @@ const handleClick = (movies) => {
 
 const MovieThumbnail = (movies) => { 
 
-    const [reviews, setReviews] = useState([]);
-
-
-    const submitReview = (e) => { 
-        e.preventDefault(); 
-        
-        const getReview = new Reviews(movies.movie.id, reviews, 4); 
-        console.log(getReview);
+    const [reviews, setReviews] = useState([{id: 0, comment: '', stars: 0}])
+    const review = { 
+        id: movies.movie.id, 
+        comment: reviews.comment, 
+        stars: reviews.stars
     }
+
+    
+
+    const handleRating = (rate) => { 
+        setReviews(prevState => {
+            return { ...prevState, stars: rate }
+        }); 
+    }
+
+    const handleReview = () => {  
+        const getId =movies.movie.id;
+        setReviews(prevState => { 
+            return { ...prevState, id: getId }
+        })
+        
+        console.log(reviews);
+
+    }
+
+    // if (reviews) {
+    //     console.log(review);
+    //     review = reviews.map(function (review, index) {
+    //         return <ReviewComponent key={index} review={review} />
+    //     })
+    // }
 
     return (
         <div>
@@ -56,27 +82,39 @@ const MovieThumbnail = (movies) => {
                 style={style} />
             </div>
             <div> 
-                <form method="post" onSubmit={submitReview} >
+                <form>
                     <div className="form-group">
                         <textarea 
                             name="review" 
                             type="text"
                             style={reviewStyle} 
                             id="review" 
-                            value = {reviews}
-                            onChange={e => setReviews(e.target.value)}
-                            placeholder="reveiw comments" />
+                            value = {review}
+                            onChange={e => setReviews(prevState => {
+                                return { ...prevState, review: e.target.value }
+                            })
+                            } />
                     </div>
                 </form>
-                <button type="text"
-                    id={movies.movie}
-                    className='btn btn-primary'
-                    onClick={submitReview}>Review</button>
             </div>
             <div> 
-
+                <Rating
+                    onClick={handleRating}
+                    // onPointerEnter={onPointerEnter}
+                    // onPointerLeave={onPointerLeave}
+                    // onPointerMove={onPointerMove}
+                    /* Available Props */
+                />
             </div>
+            <div>
+                <button type="text"
+                    id="1"
+                    className='btn btn-primary'
+                    onClick={handleReview}>Review</button>
+            </div>
+            {/* {review} */}
         </div>
+        
     );
 }
 
