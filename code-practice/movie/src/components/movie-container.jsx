@@ -14,26 +14,19 @@ const thumbnail = {
     boxSizing: "border-box",
     color: "white"
   }
-  
-  const MovieContainer = () => { 
-    let movie;
-    const [movies, setMovies] = useState(moviedata);
-    if (movies) {
-        movie = movies.map(function (movie, index) {
-            return <MovieThumbnail key={index} movie={movie} />;
-        });
-    }
 
-    let addMovie = () => { 
-        console.log('adding movie');
-    }
+  const MovieContainer = () => { 
+    
+    const [movies, setMovies] = useState(moviedata);
+    let movie = movies.map(function (movie, index) {
+        return <MovieThumbnail key={index} movie={movie} />;
+    });
 
     return (
         <div style={thumbnail} >
             <h3>Bruce Willis Movies</h3>
             <div id="moviemaster" style={thumbnail}>
                 {movie}
-                
             </div>                
         </div>
         );

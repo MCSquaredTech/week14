@@ -3,13 +3,6 @@ import React, { useState } from "react";
 import { Rating } from "react-simple-star-rating";
 import ReviewComponent from "./review-component";
 
-class Reviews { 
-    constructor(movieId, review, starRating) {
-        this.movieId = movieId; 
-        this.review = review;
-        this.starRating = starRating;
-    }
-}
 
 const style = { 
     border: '1px solid darkblue',
@@ -29,55 +22,53 @@ const reviewStyle = {
     fontSize: '14px'
 }
 
-const handleClick = (movies) => { 
-    console.log(movies.target.id);
-}
 
-
-
-
-
-const MovieThumbnail = (movies) => { 
-
-    const [reviews, setReviews] = useState([{id: 0, comment: '', stars: 0}])
-    const review = { 
-        id: movies.movie.id, 
-        comment: reviews.comment, 
-        stars: reviews.stars
-    }
-
+const MovieThumbnail = (key, movie) => {
+    const reviewCollection = [{ 
+        id: 0, 
+        review: ' ',
+        stars: 0,
+      }];
     
+    const [userReviews, setUserReviews] = useState(reviewCollection); 
+    const { id, review, stars } = userReviews;
+
+    console.log(reviewCollection);
 
     const handleRating = (rate) => { 
-        setReviews(prevState => {
-            return { ...prevState, stars: rate }
+        stars = rate
+        setUserReviews(prevState => {
+            return { ...prevState, stars: stars }
         }); 
     }
 
     const handleReview = () => {  
-        const getId =movies.movie.id;
-        setReviews(prevState => { 
-            return { ...prevState, id: getId }
+        id = key + 1;
+        setUserReviews(prevState => { 
+            return { ...prevState, id: id }
         })
         
-        console.log(reviews);
+        console.log(userReviews);
 
     }
 
-    // if (reviews) {
-    //     console.log(review);
-    //     review = reviews.map(function (review, index) {
-    //         return <ReviewComponent key={index} review={review} />
-    //     })
-    // }
+    const handleClick = () => {
+
+    }
+
+    if (userReviews) {
+        review = userReviews.map(function (review, index) {
+            return <ReviewComponent key={index} review={review} />
+        })
+    }
 
     return (
         <div>
             <div>
             <img 
-                src={movies.movie.image} 
-                alt={movies.movie.title} 
-                id={movies.movie.title}
+                src={movie.image} 
+                alt={movie.title} 
+                id={movie.title}
                 onClick={handleClick}
                 style={style} />
             </div>
@@ -89,9 +80,9 @@ const MovieThumbnail = (movies) => {
                             type="text"
                             style={reviewStyle} 
                             id="review" 
-                            value = {review}
-                            onChange={e => setReviews(prevState => {
-                                return { ...prevState, review: e.target.value }
+                            value = {userReviews.review}
+                            onChange={e => setUserReviews(prevState => {
+                                return { ...prevState, comment: e.target.value }
                             })
                             } />
                     </div>
@@ -112,7 +103,7 @@ const MovieThumbnail = (movies) => {
                     className='btn btn-primary'
                     onClick={handleReview}>Review</button>
             </div>
-            {/* {review} */}
+            {review}
         </div>
         
     );
