@@ -13,7 +13,6 @@ let UserComment = ({onClick}) => {
     } 
 
     const handleRating = (rate) => { 
-        console.log(rate);
         setUserComment((prevData) => ({...prevData, stars: rate }));
     }
 
@@ -28,9 +27,11 @@ let UserComment = ({onClick}) => {
             <form className="form" id="comments">
                 <div className="form-group">
                     <p>Review</p>
-                    <input type="textarea" 
+                    <textarea type="text" 
                         name="review"
-                        placeholder="Comment here"
+                        rows="3"
+                        cols="20"
+                        placeholder="Write a Review!"
                         onChange={handleChange} />
                 </div>
                 <div className="form-group">

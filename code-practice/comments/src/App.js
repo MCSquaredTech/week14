@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import './App.css';
 import UserComment from './components/comment';
+import DisplayReview from './components/DisplayReview';
 
 function App() {
   const [comments, setComments] = useState([]);
@@ -13,7 +14,13 @@ function App() {
         id: comments.length, 
         value: comment 
     }])
-    console.log(comments);
+  }
+
+  let comment
+  if (comments) { 
+    comment = comments.map(function (comment, key) {
+      return <DisplayReview key={key} comment={comment} />
+    })
   }
 
   return (
@@ -21,11 +28,9 @@ function App() {
       <div className="form">
         <UserComment onClick={handleSave} />
       </div>  
-      <ul> 
-        {comments.map(comment => (
-          <li key={comment.id}>{comment.value.review} {comment.value.stars}</li>
-        ))}
-      </ul>
+      <div className='App'>
+        {comment} 
+      </div>
     </div>
   );
 }

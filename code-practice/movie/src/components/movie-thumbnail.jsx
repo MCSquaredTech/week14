@@ -23,41 +23,17 @@ const reviewStyle = {
 }
 
 
-const MovieThumbnail = (key, movie) => {
-    const reviewCollection = [{ 
-        id: 0, 
-        review: ' ',
-        stars: 0,
-      }];
-    
-    const [userReviews, setUserReviews] = useState(reviewCollection); 
-    const { id, review, stars } = userReviews;
-
-    console.log(reviewCollection);
-
-    const handleRating = (rate) => { 
-        stars = rate
-        setUserReviews(prevState => {
-            return { ...prevState, stars: stars }
-        }); 
-    }
-
-    const handleReview = () => {  
-        id = key + 1;
-        setUserReviews(prevState => { 
-            return { ...prevState, id: id }
-        })
-        
-        console.log(userReviews);
-
-    }
+const MovieThumbnail = (key, movie) => { 
+    const [userReviews, setUserReviews] = useState([]);
+    const { id, values } = userReviews;
 
     const handleClick = () => {
 
     }
 
+    let review;
     if (userReviews) {
-        review = userReviews.map(function (review, index) {
+        review = userReviews.map((review, index) => {
             return <ReviewComponent key={index} review={review} />
         })
     }
@@ -74,36 +50,13 @@ const MovieThumbnail = (key, movie) => {
             </div>
             <div> 
                 <form>
-                    <div className="form-group">
-                        <textarea 
-                            name="review" 
-                            type="text"
-                            style={reviewStyle} 
-                            id="review" 
-                            value = {userReviews.review}
-                            onChange={e => setUserReviews(prevState => {
-                                return { ...prevState, comment: e.target.value }
-                            })
-                            } />
-                    </div>
+                    {review}
                 </form>
             </div>
             <div> 
-                <Rating
-                    onClick={handleRating}
-                    // onPointerEnter={onPointerEnter}
-                    // onPointerLeave={onPointerLeave}
-                    // onPointerMove={onPointerMove}
-                    /* Available Props */
-                />
+                {/* {review} */}
             </div>
-            <div>
-                <button type="text"
-                    id="1"
-                    className='btn btn-primary'
-                    onClick={handleReview}>Review</button>
-            </div>
-            {review}
+           
         </div>
         
     );
