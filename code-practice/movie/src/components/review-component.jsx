@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { Rating } from 'react-simple-star-rating'; 
 
+let styleReview = { 
+    
+}
+
 let ReviewComponent = ({onClick}) => { 
     const [userComment, setUserComment] = useState({})
     const { review, stars } = userComment;
@@ -8,7 +12,6 @@ let ReviewComponent = ({onClick}) => {
     const handleChange = (envent) => {
         
         const { name, value } = envent.target; 
-        console.log(name, value);
         setUserComment((prevData) => ({...prevData, [name]: value }));
     } 
 

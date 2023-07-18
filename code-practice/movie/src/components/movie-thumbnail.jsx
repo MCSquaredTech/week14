@@ -23,40 +23,40 @@ const reviewStyle = {
 }
 
 
-const MovieThumbnail = (key, movie) => { 
+const MovieThumbnail = ({movie}) => { 
     const [userReviews, setUserReviews] = useState([]);
     const { id, values } = userReviews;
 
-    const handleClick = () => {
-
+    let handleSave = (userComments) => { 
+        setUserReviews([...userReviews, { 
+            id: userComments.length, 
+            movieId: movie.id,
+            value: userComments 
+        }]);
     }
 
     let review;
     if (userReviews) {
         review = userReviews.map((review, index) => {
             return <ReviewComponent key={index} review={review} />
-        })
+        }).find((movieId) => movieId === movie.id)
     }
 
     return (
         <div>
             <div>
-            <img 
-                src={movie.image} 
-                alt={movie.title} 
-                id={movie.title}
-                onClick={handleClick}
-                style={style} />
+                <img 
+                    src={movie.image} 
+                    alt={movie.title} 
+                    id={movie.title}
+                    style={style} />
             </div>
-            <div> 
-                <form>
-                    {review}
-                </form>
+            <div>
+                <ReviewComponent onClick={handleSave} />
             </div>
-            <div> 
-                {/* {review} */}
+            <div>
+                { review }
             </div>
-           
         </div>
         
     );
