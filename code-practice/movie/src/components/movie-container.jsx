@@ -33,6 +33,9 @@ const thumbnail = {
                     {movie}
                 </div>                 
             </div>
+            <div>
+                {}
+            </div>
         </>
     );
   }

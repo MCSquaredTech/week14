@@ -20,17 +20,25 @@ let ReviewComponent = ({onClick}) => {
     }
 
     const handleSave = (event) => { 
-        event.preventDefault()
-        onClick(userComment);
+        
+        event.preventDefault(); 
+        event.target.reset();
+        onClick(userComment); 
+          
+    }
+
+    const handleReset = (event) => {
+        console.log("Reset!")
         
     }
 
     return ( 
         <div>
-            <form className="form" id="comments">
+            <form className="form" id="comments" onSubmit={handleSave}>
                 <div className="form-group">
                     <p>Review</p>
-                    <textarea type="text" 
+                    <textarea type="text"
+                        id="review" 
                         name="review"
                         rows="3"
                         cols="20"
@@ -47,10 +55,10 @@ let ReviewComponent = ({onClick}) => {
                 </div>
                 <div className="form-group"> 
                     <button 
+                        type="submit"
                         className="btn btn-primary"
                         name="save" 
-                        
-                        onClick={handleSave}>Save</button>
+                        >Save</button>
                 </div>
             </form>
         </div>

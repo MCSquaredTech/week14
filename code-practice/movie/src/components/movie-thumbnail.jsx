@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Rating } from "react-simple-star-rating";
 import ReviewComponent from "./review-component";
-
+import DisplayReview from "./display-review";
 
 const style = { 
     border: '1px solid darkblue',
@@ -38,8 +38,8 @@ const MovieThumbnail = ({movie}) => {
     let review;
     if (userReviews) {
         review = userReviews.map((review, index) => {
-            return <ReviewComponent key={index} review={review} />
-        }).find((movieId) => movieId === movie.id)
+            return <DisplayReview key={index} comment={review} />
+        })
     }
 
     return (
