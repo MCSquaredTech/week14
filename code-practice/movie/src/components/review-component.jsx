@@ -22,7 +22,7 @@ let ReviewComponent = ({onClick}) => {
     const handleSave = (event) => { 
         
         event.preventDefault(); 
-        event.target.reset();
+        setUserComment((prevData) => ({...prevData, review: "", stars: '0'}));
         onClick(userComment); 
           
     }
@@ -43,12 +43,13 @@ let ReviewComponent = ({onClick}) => {
                         rows="3"
                         cols="20"
                         placeholder="Write a Review!"
+                        value={review}
                         onChange={handleChange} />
                 </div>
                 <div className="form-group">
                     <Rating 
                         onClick={handleRating}
-                        ratingValue="starValue"
+                        initialValue={stars}
                         size={20}
                         fillColor='orange'
                         emptyColor='gray' />
